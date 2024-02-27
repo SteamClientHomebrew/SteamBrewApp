@@ -1,95 +1,112 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import '../css/index.css'
+import { useEffect, useState } from 'react'
+
+import RenderFooter from './components/footer'
+import RenderHeader from './components/header'
+
+import stats from './components/stats'
+import { Tooltip } from 'react-tooltip'
+import CountUp from 'react-countup'
+
+export default function RenderHome() {
+
+  const [stat, setStat] = useState()
+  const isSteamClient = navigator.userAgent.includes("Valve Steam Client")
+
+  useEffect(() => {
+    stats().then(stats => setStat(stats))
+  }, [])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+      {!isSteamClient ? RenderHeader() : <></>}
+      <main id="main-page-content">
+        <section id="home-hero-section" className="page-section">
+          <div className="page-section-inner">
+            <div id="hero-top-container" className="flex-container align-center justify-center direction-column">
+              <h1 className="text-center title">millennium.</h1>
+              <p className="text-center title-description">A community focused on extending the functionality of Steam®</p>
+              <div className="btn-container">
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+                <button className="btn btn-primary" id="hero-download-button" 
+                href="https://github.com/ShadowMonster99/millennium-steam-patcher/releases/latest/download/Millennium.Installer-Windows.exe"
+                > 
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA2UlEQVR4nO3XQQrCMBhE4ZxE738EqwczqxEhiyJdjMn7qcJ86/KGFgpJaxERP0nSVdJDUtd33s/fJV0qWrYxuGKraNkmvtanXtGyCVDRspGjZMtGjpItGzlKtmzkKNmykaNky0aOki0bOUq2bOQo2bKRo2TLRo6e9QJ9cfNZ0bKNYyx1GsVatnGG3ybP8LeD+wDSir+hXCmVK+VOrpRTdv/TsjbxE2OjZMtGjpItGzlKtmzkKNmykaNky0aOki0bOUq2bOQo2bKRo2e9QF/czJVyJ1fKiIhW4gUckOeYKTTM/gAAAABJRU5ErkJggg=="/>
+                  <span>Download v{stat?.version ?? "1.0.0"}</span>
+                </button>
+                {/* <Tooltip anchorSelect="#hero-download-button" place='bottom' clickable>
+                  <p>Download Millennium v{stat?.version ?? "1.0.0"}!</p>
+                  <a href="https://github.com/ShadowMonster99/millennium-steam-patcher/">
+                    View Source Code
+                  </a>
+                </Tooltip> */}
+                
+                <button className="btn btn-secondary" id="hero-community-button" href='/discord'> 
+                  <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                    <path fillRule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v5.5a.25.25 0 01-.25.25h-3.5a.75.75 0 00-.53.22L3.5 11.44V9.25a.75.75 0 00-.75-.75h-1a.25.25 0 01-.25-.25v-5.5zM1.75 1A1.75 1.75 0 000 2.75v5.5C0 9.216.784 10 1.75 10H2v1.543a1.457 1.457 0 002.487 1.03L7.061 10h3.189A1.75 1.75 0 0012 8.25v-5.5A1.75 1.75 0 0010.25 1h-8.5zM14.5 4.75a.25.25 0 00-.25-.25h-.5a.75.75 0 110-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0114.25 12H14v1.543a1.457 1.457 0 01-2.487 1.03L9.22 12.28a.75.75 0 111.06-1.06l2.22 2.22v-2.19a.75.75 0 01.75-.75h1a.25.25 0 00.25-.25v-5.5z"></path>
+                  </svg>
+                  <span>Community</span>
+                </button>
+              </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+              <div className="downloads-container">
+                <strong id="downloads-count">
+                  <CountUp start={0} end={Number(stat?.download_count ?? 0)} />
+                </strong>
+                <span> Downloads</span>
+                <strong id="downloads-count">
+                  <CountUp start={0} end={Number(stat?.server_members ?? 0)} />
+                </strong>
+                <span> Discord Members</span>
+              </div>
+            </div>
+            <div id="hero-bottom-container" className="flex-container align-center justify-center hide-mobile">
+              <img id="hero-image" loading="lazy" src="https://i.imgur.com/Kyl9aSV.png" className="home-img" alt="Home" />
+            </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            <Tooltip anchorSelect="#hero-image" place='top' clickable>
+              <p>Like this theme? Check it out below
+              </p>
+              <a href="/theme?id=F8h9ZhwOdoNygNcAfjIZ">
+                   Simple Dark. 
+                </a>
+            </Tooltip>
+          </div>
+        </section>
+        <section id="home-additional-features" className="page-section">
+          <div className="page-section-inner">
+            <h1 className="title text-center">What's This?</h1>
+            <p className="title-description text-center">As you've heard, Steam® removed the ability customize our client experience. <br />That's where we come in. We've developed Millennium, a patcher which enables open sourced client modifications</p>
+            <div id="additional-features" className="flex-container align-center justify-center wrap">
+              <div className="additional-feature" id="additional-feature-emotes">
+                <div className="additional-feature-icon">
+                  <img src="https://i.imgur.com/G94FyIo.png" alt="" />
+                </div>
+                
+                <h5>Intergration</h5>
+                <p>As we are intergrated directly into the Steam® client and doesn't run as a stand-alone process</p>
+              </div>
+              <div className="additional-feature" id="additional-feature-security">
+                <div className="additional-feature-icon">
+                  <img src="https://i.imgur.com/K4Nan9a.png" alt="" />
+                </div>
+                <h5>Performance</h5>
+                <p>Thanks to you guys, we are currently the most effecient way to theme your Steam Client!</p>
+              </div>
+              <div className="additional-feature" id="additional-feature-editor">
+                <div className="additional-feature-icon">
+                  <img src="https://i.imgur.com/eVD1FRR.png" alt="" />
+                </div>
+                <h5>Safety</h5>
+                <p>Our developers manually review all code on the community hub to ensure there is nothing malcious</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      {!isSteamClient ? RenderFooter() : <></>}
+    </>
   );
 }
