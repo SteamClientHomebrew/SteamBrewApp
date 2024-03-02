@@ -1,31 +1,20 @@
 
 import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
-
 import Head from "next/head"
-import { useEffect } from 'react';
-
 import GetLatestThemes from '../app/components/themes/featured';
 import RenderFooter from '../app/components/footer'
 import RenderHeader from '../app/components/header'
 import { DisplayFluentyAd } from '../app/components/fluenty/fluenty'
-
-// import { Tooltip } from 'react-tooltip'
 import '../css/index.css'
+
+const inter = Inter({ subsets: ["latin"] });
 
 export async function getServerSideProps(context) {
     const { req } = context;
     const userAgent = req.headers['user-agent'];
   
-    // Check if the user agent indicates a mobile device
     const isSteamClient = /Valve Steam Client/.test(userAgent);
-  
-    // Pass the isMobile flag as a prop
-    return {
-      props: {
-        isSteamClient,
-      },
-    };
+    return { props: { isSteamClient } };
 }
 
 function ThemeLibrary({ isSteamClient }) {

@@ -1,6 +1,13 @@
 {
   "hosting": {
+    "site": "millennium",
     "source": ".",
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

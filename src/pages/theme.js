@@ -1,61 +1,47 @@
 import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
-
 import React from 'react';
-import '../css/index.css'
 import Head from "next/head"
-
 import RenderFooter from '../app/components/footer'
 import RenderHeader from '../app/components/header'
-
 import { markdownToHtml } from '../app/components/markdown'
-import styled from 'styled-components';
+import { date_str, frm_num } from '../app/components/format/formatting'
 
+import '../css/index.css'
+const inter = Inter({ subsets: ["latin"] });
 
-// import {Tooltip} from "@nextui-org/tooltip";
-
-function HeadProp(json) {
+function HeadProp({ json }) {
     return (
         <Head>
-            <title>{`${json?.name} • Millennium`}</title>
+            <title>{`${json?.name} - Millennium`}</title>
             <meta name="description" content={json.description} />
-            <meta property="og:title" content={`${json.name} • Millennium`}/>
+            <meta property="og:title" content={`${json.name} - Millennium`}/>
             <meta property="og:description" content={json.description}/>
             {/* <meta property="og:url" content="https://betterdiscord.app/theme/Dark%20Matter"/> */}
-            <meta property="og:image" content={json?.splash_image}/>
+            <meta property="og:image" content={json?.header_image}/>
             <meta property="og:image:alt" content="theme Thumbnail"/>
             <meta property="og:image:width" content="1920"/>
             <meta property="og:image:width" content="1080"/>
             <meta name="description" content={json.description}/>
             <meta property="twitter:card" content="summary_large_image"/>
-            <meta property="twitter:title" content={`${json.name} • Millennium`}/>
+            <meta property="twitter:title" content={`${json.name} - Millennium`}/>
             <meta property="twitter:description" content={json.description}/>
             {/* <meta property="twitter:url" content="https://betterdiscord.app/theme/Dark%20Matter"/> */}
-            <meta property="twitter:image" content={json?.splash_image}/>
+            <meta property="twitter:image" content={json?.header_image}/>
             <meta property="twitter:image:alt" content="theme Thumbnail"/>
             <meta property="og:site_name" content="Millennium"/>
             <meta property="twitter:site" content="Millennium"/>
             <meta name="theme-color" content="#3a71c1"/>
             
-            <meta name="author" content="Millennium"/>
-            <meta name="msapplication-TileColor" content="#3a71c1"/>
-            <meta name="msapplication-TileImage" content="/resources/favicon/ms-icon-144x144.png"/>
-
+            <meta name="author" content={json.author ?? "Anonymous"}/>
         </Head>
     )
 } 
 
 export const getServerSideProps = (async (context) => {
 
-    // Get query parameters from the context object
     const { query } = context;
-
-    // Access specific query parameters
     const { id } = query;
 
-    // Fetch data from external API
     const res = await fetch(`https://millennium.web.app/api/v2/details/` + id)
     const json = await res.json()
 
@@ -65,39 +51,16 @@ export const getServerSideProps = (async (context) => {
     const { req } = context;
     const userAgent = req.headers['user-agent'];
   
-    // Check if the user agent indicates a mobile device
     const isSteamClient = /Valve Steam Client/.test(userAgent);
   
-    // Pass the isMobile flag as a prop
-    // Pass data to the page via props
     return { 
         props: { 
-            json, 
-            markdown,
-            isSteamClient
+            json, markdown, isSteamClient
         } 
     }
 })
 
 export default function Home({ json, markdown, isSteamClient }) {
-
-
-  function formatNumber(number) {
-    if (number >= 1000) {
-        const formattedNumber = (number / 1000).toFixed(1);
-        return `${formattedNumber}K`;
-    } else {
-        return number;
-    }
-  }
-
-  function convertToCurrentTimeZone(dateString) {
-      const originalDate = new Date(dateString);
-      const timezoneOffset = originalDate.getTimezoneOffset();
-      const adjustedDate = new Date(originalDate.getTime() - timezoneOffset * 60000);
-    
-      return adjustedDate.toDateString();
-  }
 
   const startDownload = (download, redirect) => 
   {
@@ -124,7 +87,7 @@ export default function Home({ json, markdown, isSteamClient }) {
 
   return (
     <div className={inter.className}>
-    { HeadProp(json) }
+    <HeadProp json={json} />
     <div className="os-resize-observer-host observed">
       <div className="os-resize-observer"></div>
     </div>
@@ -132,7 +95,7 @@ export default function Home({ json, markdown, isSteamClient }) {
         <div className="os-content">
           <div className="vm-placement" data-id="60f82387ffc37172cbbc0201"></div>
           <div className="vm-placement" id="vm-av" data-format="isvideo"></div>
-          {!isSteamClient ? RenderHeader() : <></>}
+          {!isSteamClient ? <RenderHeader/> : <></>}
           <section id="main-page-content">
           <section id="addon-details" className="page-section">
               <div className="page-section-inner">
@@ -148,9 +111,9 @@ export default function Home({ json, markdown, isSteamClient }) {
                   <div className="addon-info-divider"></div>
                   <span className="addon-info-item">Version: {json?.version}</span>
                   <div className="addon-info-divider"></div>
-                  <span className="addon-info-item">Updated: {json?.commit_data?.committedDate && convertToCurrentTimeZone(json?.commit_data?.committedDate)}</span>
+                  <span className="addon-info-item">Updated: {json?.commit_data?.committedDate && date_str(json?.commit_data?.committedDate)}</span>
                   <div className="addon-info-divider"></div>
-                  <span className="addon-info-item">Downloads: {formatNumber(json?.data?.download)} </span>
+                  <span className="addon-info-item">Downloads: {frm_num(json?.data?.download)} </span>
                   <div className="addon-info-divider"></div>
               </div>
               <div className="title-description">
@@ -212,11 +175,11 @@ export default function Home({ json, markdown, isSteamClient }) {
                       <span className="addon-metadata-row">
                           <strong>Version: </strong> {json?.version} </span>
                       <span className="addon-metadata-row">
-                          <strong>Downloads: </strong> {formatNumber(json?.data?.download)} </span>
+                          <strong>Downloads: </strong> {frm_num(json?.data?.download)} </span>
                       <span className="addon-metadata-row">
-                          <strong>Added: </strong>{json?.data?.create_time && convertToCurrentTimeZone(json?.data?.create_time)} </span>
+                          <strong>Added: </strong>{json?.data?.create_time && date_str(json?.data?.create_time)} </span>
                       <span className="addon-metadata-row">
-                          <strong>Last Updated: </strong>{json?.commit_data?.committedDate && convertToCurrentTimeZone(json?.commit_data?.committedDate)} </span>
+                          <strong>Last Updated: </strong>{json?.commit_data?.committedDate && date_str(json?.commit_data?.committedDate)} </span>
                       <span className="addon-metadata-row">
                           <strong>Id: </strong>{json?.data?.id}</span>
                       <span className="addon-metadata-row">
@@ -267,14 +230,12 @@ export default function Home({ json, markdown, isSteamClient }) {
                           </section>
                       </div> : <></>
                   }
-                  
-                  
                   </div>
               </div>
               </div>
           </section>
           </section>
-          {!isSteamClient ? RenderFooter() : <></>}
+          {!isSteamClient ? <RenderFooter/> : <></>}
         </div>
       </div>
     </div>

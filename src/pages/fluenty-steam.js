@@ -6,15 +6,50 @@ const inter = Inter({ subsets: ["latin"] });
 
 import RenderFooter from '../app/components/footer'
 import RenderHeader from '../app/components/header'
+import Head from "next/head"
 
-import { download_count } from '../app/components/fluenty/fluenty'
+import { fluenty } from '@/app/components/fluenty/fluenty'
 
-export default function FluentyViewModal() {
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const userAgent = req.headers['user-agent'];
 
-	const isSteamClient = navigator.userAgent.includes("Valve Steam Client")
+    // Check if the user agent indicates a mobile device
+    const isSteamClient = /Valve Steam Client/.test(userAgent);
+
+    // Pass the isMobile flag as a prop
+    return {
+      props: {
+        isSteamClient,
+      },
+    };
+}
+
+export default function FluentyViewModal({ isSteamClient }) {
 
     return (
         <div className={inter.className}>
+            <Head>
+                <title>{`Fluenty - Millennium`}</title>
+                <meta name="description" content={fluenty.description} />
+                <meta property="og:title" content={`Fluenty - Millennium`}/>
+                <meta property="og:description" content={fluenty.description}/>
+                <meta property="og:image" content={"https://i.imgur.com/ca6ncMp.gif"}/>
+                <meta property="og:image:alt" content="theme Thumbnail"/>
+                <meta property="og:image:width" content="1920"/>
+                <meta property="og:image:width" content="1080"/>
+                <meta name="description" content={fluenty.description}/>
+                <meta property="twitter:card" content="summary_large_image"/>
+                <meta property="twitter:title" content={`Fluenty - Millennium`}/>
+                <meta property="twitter:description" content={fluenty.description}/>
+                <meta property="twitter:image" content={"https://i.imgur.com/ca6ncMp.gif"}/>
+                <meta property="twitter:image:alt" content="theme Thumbnail"/>
+                <meta property="og:site_name" content="Millennium"/>
+                <meta property="twitter:site" content="Millennium"/>
+                <meta name="theme-color" content="#3a71c1"/>
+
+                <meta name="author" content={"ShadowMonster, Hexality, Shiina" ?? "Anonymous"}/>
+            </Head>
             <div className="os-resize-observer-host observed">
                 <div className="os-resize-observer"></div>
             </div>
@@ -35,12 +70,12 @@ export default function FluentyViewModal() {
                             <div className="hide-mobile flex-container wrap align-center" id="addon-info-container">
                                 <span className="addon-info-item">By <a target="_blank" className="anchor" href={`https://www.patreon.com/fluentyforsteam/about`}>ShadowMonster</a></span>
                                 <div className="addon-info-divider"></div>
-                                <span className="addon-info-item">Version: {'1.0.1'}</span>
+                                <span className="addon-info-item">Version: {fluenty.version}</span>
                                 <div className="addon-info-divider"></div>
-                                <span className="addon-info-item">Downloads: {download_count()} </span>
+                                <span className="addon-info-item">Downloads: {fluenty.downloads} </span>
                                 <div className="addon-info-divider"></div>
                             </div>
-                            <div className="title-description">Based off of Windows 11 design principles</div>
+                            <div className="title-description">{fluenty.description}</div>
                             <div className="flex-container" id="addon-splitview-container">
                                 <div className="addon-details-column" id="addon-details-left-column">
                                     <article className="addon-details-segment">
@@ -82,7 +117,7 @@ export default function FluentyViewModal() {
                                         </div>
                                         <br />
                                         <br />
-                                        <b>Copyright Millennium | Steam++ © 2024</b>
+                                        <b>Copyright Project-Millennium © 2024</b>
                                         </div>
                                     </article>
                                 </div>
@@ -102,11 +137,11 @@ export default function FluentyViewModal() {
                                         <h3 className="addon-details-section-header">Authors</h3>
                                         <section id="addon-author">
                                         <a target="_blank" href={`https://github.com/ShadowMonster99`} className="addon-author-container">
-                                            <img loading="lazy" src={`https://github.com/ShadowMonster99.png`}/>
+                                            <img loading="lazy" src={`https://github.com/ShadowMonster99.png`} alt={}/>
                                             <h5>ShadowMonster</h5>
                                         </a>
                                         <a target="_blank" href={`https://github.com/Hexality`} className="addon-author-container">
-                                            <img loading="lazy" src={`https://github.com/Hexality.png`}/>
+                                            <img loading="lazy" src={`https://github.com/Hexality.png`} alt={}/>
                                             <h5>Hexality</h5>
                                         </a>
                                         <a target="_blank" href={`https://github.com/AikoMidori`} className="addon-author-container">

@@ -37,8 +37,8 @@ function RenderHeader() {
                     </a>
                     <nav id="navbar-nav-items" className="flex-container align-center" data-toggle="affix">
                         <a className="nav-item" href="/themes">Themes</a>
-                        <a className="nav-item" target="_blank" href="https://millennium.gitbook.io/steam-patcher">Developers</a>
-                        <a className="nav-item" target="_blank" href="https://millennium.gitbook.io/steam-patcher/getting-started/faq">FAQ</a>
+                        <a className="nav-item" target="_blank" href="https://millennium.gitbook.io/steam-patcher">Documentation</a>
+                        <a className="nav-item" target="_blank" href="https://github.com/ShadowMonster99/millennium-steam-patcher/">GitHub</a>
                         <a href="/discord">
                             <button type="submit" className="btn btn-secondary">
                                 <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" width="16" height="16">
