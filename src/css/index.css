@@ -4122,3 +4122,47 @@ img.card-image.no-image {
 p.text-center.title-description {
     font-size: 14px;
 }
+
+.btn-container {
+    justify-content: center;
+}
+
+a#kofi-btn {
+    background: #FF5E5B !important;
+}
+img#kofi-icon {
+    height: 14px !important;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fefefe;
+    color: #0071c2;
+}
+
+.loading-spinner {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    overflow: visible;
+    margin-right: 10px;
+}
+.loading-spinner > circle {
+    fill: none;
+    stroke: currentColor;
+    cx: 50%;
+    cy: 50%;
+    r: 50%;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    transform-origin: center;
+}
+
+#remove-btn {
+    background-color: rgb(185, 32, 32);
+}

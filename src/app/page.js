@@ -9,6 +9,7 @@ import RenderHeader from './components/header'
 import stats from './components/stats'
 import { Tooltip } from 'react-tooltip'
 import CountUp from 'react-countup'
+import Head from "next/head"
 
 export default function RenderHome() {
 
@@ -20,7 +21,10 @@ export default function RenderHome() {
 
   return (
     <>
-      {RenderHeader()}
+    <Head>
+      <link rel="icon" href="https://i.imgur.com/9qYPFSA.png" type="image/x-icon" sizes="16x16"></link>
+    </Head>
+    <RenderHeader/>
       <main id="main-page-content">
         <div className="flex-1 max-w-3xl"><div role="status" aria-busy="true" className="skeleton-heading"><div className="ring-1 ring-dark/2 overflow-hidden relative grid dark:ring-light/1 rounded-md h-[47px] [max-width:calc(48rem-1px)] mb-8"><div class="w-full bg-dark-4/4 dark:bg-light-3/1 grid grid-area-1-1 overflow-hidden [mask:conic-gradient(from_90deg_at_1px_1px,_#0000_90deg,_#0003_0)_calc(50%+1px)_calc(0%+47px)_/_12px_12px]"><div class="aspect-square from-dark-4 to-transparent grid-area-1-1 relative origin-[50%_50%] top-[50%] self-stretch bg-transparent will-change-transform animate-[rotateLoop_2s_linear_infinite] [background-image:conic-gradient(from_-90deg_at_50%_50%,_var(--tw-gradient-stops)_0deg,_var(--tw-gradient-stops)_90deg,_var(--tw-gradient-stops)_280deg)] dark:from-light-4/6"></div></div></div></div><div role="status" aria-busy="true" class="skeleton-paragraph"><div class="ring-1 ring-dark/2 overflow-hidden relative grid dark:ring-light/1 rounded-md [height:calc(15rem-1px)] [max-width:calc(48rem-1px)] mb-4"><div class="w-full bg-dark-4/4 dark:bg-light-3/1 grid grid-area-1-1 overflow-hidden [mask:conic-gradient(from_90deg_at_1px_1px,_#0000_90deg,_#0003_0)_calc(50%+1px)_calc(0%+47px)_/_48px_48px]"><div class="aspect-square from-dark-4 to-transparent grid-area-1-1 relative origin-[50%_50%] top-[50%] self-stretch bg-transparent will-change-transform animate-[rotateLoop_2s_linear_infinite] [background-image:conic-gradient(from_-90deg_at_50%_50%,_var(--tw-gradient-stops)_0deg,_var(--tw-gradient-stops)_90deg,_var(--tw-gradient-stops)_280deg)] dark:from-light-4/6"></div></div></div></div></div>
         <section id="home-hero-section" className="page-section">
@@ -37,14 +41,6 @@ export default function RenderHome() {
                     <span>Download v{stat?.version ?? "1.0.0"}</span>
                   </button>
                 </a>
-
-                {/* <Tooltip anchorSelect="#hero-download-button" place='bottom' clickable>
-                  <p>Download Millennium v{stat?.version ?? "1.0.0"}!</p>
-                  <a href="https://github.com/ShadowMonster99/millennium-steam-patcher/">
-                    View Source Code
-                  </a>
-                </Tooltip> */}
-                
                 <a href="/discord">
                   <button className="btn btn-secondary" id="hero-community-button" href='/discord'>
                     <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
@@ -110,7 +106,7 @@ export default function RenderHome() {
           </div>
         </section>
       </main>
-      {RenderFooter()}
+    <RenderFooter/>
     </>
   );
 }

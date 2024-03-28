@@ -18,10 +18,8 @@ function RenderHeader() {
     };
 
     useEffect(() => {
-        // Attach the event listener when the component mounts
         window.addEventListener('scroll', handleScroll);
     
-        // Cleanup: Remove the event listener when the component unmounts
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };

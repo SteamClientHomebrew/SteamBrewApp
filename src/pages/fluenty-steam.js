@@ -14,14 +14,12 @@ export async function getServerSideProps(context) {
     const { req } = context;
     const userAgent = req.headers['user-agent'];
 
-    // Check if the user agent indicates a mobile device
     const isSteamClient = /Valve Steam Client/.test(userAgent);
 
-    // Pass the isMobile flag as a prop
     return {
-      props: {
-        isSteamClient,
-      },
+        props: {
+            isSteamClient,
+        },
     };
 }
 
@@ -137,11 +135,11 @@ export default function FluentyViewModal({ isSteamClient }) {
                                         <h3 className="addon-details-section-header">Authors</h3>
                                         <section id="addon-author">
                                         <a target="_blank" href={`https://github.com/ShadowMonster99`} className="addon-author-container">
-                                            <img loading="lazy" src={`https://github.com/ShadowMonster99.png`} alt={}/>
+                                            <img loading="lazy" src={`https://github.com/ShadowMonster99.png`}/>
                                             <h5>ShadowMonster</h5>
                                         </a>
                                         <a target="_blank" href={`https://github.com/Hexality`} className="addon-author-container">
-                                            <img loading="lazy" src={`https://github.com/Hexality.png`} alt={}/>
+                                            <img loading="lazy" src={`https://github.com/Hexality.png`}/>
                                             <h5>Hexality</h5>
                                         </a>
                                         <a target="_blank" href={`https://github.com/AikoMidori`} className="addon-author-container">
