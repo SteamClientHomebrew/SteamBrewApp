@@ -35,7 +35,7 @@ function RenderHeader() {
                     </a>
                     <nav id="navbar-nav-items" className="flex-container align-center" data-toggle="affix">
                         <a className="nav-item" href="/themes">Themes</a>
-                        <a className="nav-item" target="_blank" href="https://millennium.gitbook.io/steam-patcher">Documentation</a>
+                        <a className="nav-item" target="_blank" href="https://github.com/SteamClientHomebrew/Millennium/wiki">Documentation</a>
                         <a className="nav-item" target="_blank" href="https://github.com/ShadowMonster99/millennium-steam-patcher/">GitHub</a>
                         <a href="/discord">
                             <button type="submit" className="btn btn-secondary">

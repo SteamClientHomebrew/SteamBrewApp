@@ -35,7 +35,7 @@ export default function RenderHome() {
               <div className="btn-container">
 
 
-                <a href="https://github.com/ShadowMonster99/millennium-steam-patcher/releases/latest/download/Millennium.Installer-Windows.exe">
+                <a href="https://github.com/SteamClientHomebrew/Installer/releases/latest/download/Millennium.Installer-Windows.exe">
                   <button className="btn btn-primary" id="hero-download-button">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA2UlEQVR4nO3XQQrCMBhE4ZxE738EqwczqxEhiyJdjMn7qcJ86/KGFgpJaxERP0nSVdJDUtd33s/fJV0qWrYxuGKraNkmvtanXtGyCVDRspGjZMtGjpItGzlKtmzkKNmykaNky0aOki0bOUq2bOQo2bKRo2TLRo6e9QJ9cfNZ0bKNYyx1GsVatnGG3ybP8LeD+wDSir+hXCmVK+VOrpRTdv/TsjbxE2OjZMtGjpItGzlKtmzkKNmykaNky0aOki0bOUq2bOQo2bKRo2e9QF/czJVyJ1fKiIhW4gUckOeYKTTM/gAAAABJRU5ErkJggg=="/>
                     <span>Download v{stat?.version ?? "1.0.0"}</span>
