@@ -4891,3 +4891,7 @@ svg.nothing-here {
         border-bottom-left-radius: 10px;
     }
 }
+
+.themes-right-side {
+    width: 100%;
+}
