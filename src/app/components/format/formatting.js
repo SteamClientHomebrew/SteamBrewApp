@@ -6,4 +6,4 @@ function date_str(dateString) {
   return new Date(new Date(dateString).getTime() - new Date(dateString).getTimezoneOffset() * 60000).toDateString();
 }
 
-module.exports = { frm_num, date_str }
+export { frm_num, date_str }

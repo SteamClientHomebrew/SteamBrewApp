@@ -1,7 +1,7 @@
-import { Inter } from "next/font/google";
+import { GeistSans } from 'geist/font/sans';
 import Head from "next/head"
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Millennium",
@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       <Head>
         <link rel="icon" href="https://i.imgur.com/9qYPFSA.png" type="image/x-icon" sizes="16x16"></link>
       </Head>
-      <body className={inter.className}>{children}</body>
+      <body className={GeistSans.className}>{children}</body>
     </html>
   );
 }

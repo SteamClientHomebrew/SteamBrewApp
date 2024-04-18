@@ -28,41 +28,22 @@ function CreateCard(item) {
                             currentTarget.src='https://i.imgur.com/Ritvk0y.png';
                             currentTarget.className = "card-image no-image" 
                         }} 
-                        src={data?.header_image == "[NO-IMAGE]" ? 'https://i.imgur.com/Ritvk0y.png' : data?.header_image} alt="Thumbnail" data-holder-rendered="true" />
-                    
+                        src={data?.header_image == "[NO-IMAGE]" ? 'https://i.imgur.com/Ritvk0y.png' : data?.header_image} alt="Thumbnail" data-holder-rendered="true">       
+                    </img>
                     <div className="card-body">
                     <h3 className="card-title">{data.name}</h3>
-                    <p className="card-subtext package-author">by <object>
-                        <a className="anchor author-link" target="_blank" rel="noreferrer noopener" href={`https://github.com/${data.data.github.owner}`}>{data.data.github.owner}</a>
-                        </object>
-                    </p>
                     <p className="card-description package-description">{data.description}</p>
-                    <div className="addon-tags">
-                        {data.tags.map((tag, index) => (
-                            <span key={index} className="addon-tag">
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
                     <div className="card-footer">
-                        {/* <object>
-                        <a target="_blank" href={`/theme?id=${data.data.id}`} className="btn btn-primary">
-                            <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-                                <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
-                            </svg>
-                            <span>View More</span>
-                        </a>
-                        </object> */}
                         <div className="card-stats">
-                        {/* <div className="card-stat" id="addon-downloads">
-                            <svg className="package-stat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-                            <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
-                            </svg>
-                            <span>{(data?.data?.download && formatNumber(data?.data?.download)) ?? "none"}</span>
-                        </div> */}
-                        {/* <div className="dot card-stat">•</div> */}
                         <div className="card-stat" id="addon-likes">
-                            <span>v{data.version == "none" ? "1.0.0" : data.version}</span>
+                            <div className="pfp-name">
+                                <p className="card-subtext package-author">by {data.data.github.owner}</p> 
+
+                                <a target="_blank" className="addon-author-container">
+                                    <img loading="lazy" src={`https://github.com/${data?.data?.github?.owner}.png`}/>
+                                </a>
+                            </div>
+                            <div aria-label="View demo" class="card_demo-link__kBqwW" role="link" type="button"><svg class="with-icon_icon__MHUeb" data-testid="geist-icon" fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24" style={{ color: 'currentColor', width: '20px', height: '20px' }}><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg></div>
                         </div>
                         </div>
                     </div>
