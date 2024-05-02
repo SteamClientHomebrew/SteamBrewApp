@@ -3,7 +3,7 @@
 
 ## [SCH] Community Frontend
 
-live build: https://millennium.web.app/
+live build: https://steambrew.app
 
 <br>
 
