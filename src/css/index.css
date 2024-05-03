@@ -4251,9 +4251,9 @@ button#hero-download-button {
 
 #mouse-icon::before {
 	content: "SCROLL";
-	width: 10vw;
+	width: 20vw;
 	display: block;
-	margin: 0 0 0 -5vw;
+	margin: 0 0 0 -10vw;
 	position: absolute;
 	left: 50%;
 	text-align: center;
