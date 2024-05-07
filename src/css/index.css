@@ -4197,18 +4197,18 @@ button#hero-download-button {
     border-radius: 10px;
 }
 
-#mouse-icon::before{
-	content:'SCROLL';
-	width:60px;
-	display:block;
-	margin:0 0 0 -30px;
-	position:absolute;
-	left:50%;
-	text-align:center;
-	font:1em 'Dosis', sans-serif;
-	color:#fff;
-	font-weight:700;
-	opacity:0;
+#mouse-icon::before {
+	content: "SCROLL";
+	width: 20vw;
+	display: block;
+	margin: 0 0 0 -10vw;
+	position: absolute;
+	left: 50%;
+	text-align: center;
+	font: 1em 'Dosis', sans-serif;
+	color: #fff;
+	font-weight: 700;
+	opacity: 0;
 	-webkit-transform: scaleX(0);
  	-moz-transform: scaleX(0);
  	-o-transform: scaleX(0);
@@ -4218,14 +4218,14 @@ button#hero-download-button {
 	transition: all 0.3s ease-in-out;
 }
 
-#mouse-icon:hover{
-	opacity:1;
-  cursor:pointer;
+#mouse-icon:hover {
+	opacity: 1;
+    cursor: pointer;
 }
 
-#mouse-icon:hover:before{
-	margin-top:-30px;
-	opacity:1;
+#mouse-icon:hover:before {
+	margin-top: -30px;
+	opacity: 1;
 	-webkit-transform: scaleX(1);
  	-moz-transform: scaleX(1);
  	-o-transform: scaleX(1);
