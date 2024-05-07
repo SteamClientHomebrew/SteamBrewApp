@@ -4198,23 +4198,23 @@ button#hero-download-button {
 }
 
 #mouse-icon::before {
-	content: "SCROLL";
-	width: 20vw;
-	display: block;
-	margin: 0 0 0 -10vw;
-	position: absolute;
-	left: 50%;
-	text-align: center;
-	color: #fff;
-	font-weight: 700;
-	opacity: 0;
-	-webkit-transform: scaleX(0);
- 	-moz-transform: scaleX(0);
- 	-o-transform: scaleX(0);
- 	transform: scaleX(0);
-	-moz-transition: all 0.3s ease-in-out;
-	-webkit-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+    content: "SCROLL";
+    width: 20vw;
+    display: block;
+    margin: 0 0 0 -10vw;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    opacity: 0;
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -o-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 #mouse-icon:hover {
