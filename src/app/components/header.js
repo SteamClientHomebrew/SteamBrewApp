@@ -28,13 +28,15 @@ function RenderHeader() {
 
     return (
         <>
-            <header id="navbar" className={`page-section flex-container align-center floating`}>
+            <header id="navbar" className={`page-section flex-container align-center floating header-bar`}>
                 <div className="page-section-inner">
-                    <a className="navbar-logo-container" href="/">
-                        <img loading="lazy" className="navbar-logo hide-mobile" src="https://i.imgur.com/9qYPFSA.png"/>
-                        <img loading="lazy" className="navbar-logo small" src="https://i.imgur.com/9qYPFSA.png"/>
-                        Millennium.
-                    </a>
+                    <div className='logo-hamburger-section'>
+                        <a className="navbar-logo-container" href="/">
+                            <img loading="lazy" className="navbar-logo hide-mobile" src="https://i.imgur.com/9qYPFSA.png"/>
+                            <img loading="lazy" className="navbar-logo small" src="https://i.imgur.com/9qYPFSA.png"/>
+                            <div>Steam Homebrew.</div>
+                        </a>
+                    </div>
                     <nav id="navbar-nav-items" className="flex-container align-center" data-toggle="affix">
                         <a className={`nav-item ${GeistSans.className}`} href="/themes">Themes</a>
                         <a className={`nav-item ${GeistSans.className}`} href="/plugins">Plugins</a>

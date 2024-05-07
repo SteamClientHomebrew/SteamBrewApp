@@ -30,10 +30,8 @@ function ThemeLibrary({ isSteamClient }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://millennium.web.app/api/v2/');
+                const response = await fetch('https://steambrew.app/api/v2/');
                 let result = await response.json();
-
-				console.log(selectedTags)
 
 				const buffer = ["All"];
                 result.forEach(theme => {
@@ -45,16 +43,11 @@ function ThemeLibrary({ isSteamClient }) {
                 });
 
                 setTags(buffer);
-
-                let sorted = [...result]; // Create a copy to avoid mutating the original data
-
+                let sorted = [...result];
 				let filteredData = [];
 
-				if (selectedTags.label != "All") 
-				{
-					console.log('filtering only', selectedTags.label)
+				if (selectedTags.label != "All") {
 					filteredData = result.filter(item => {
-						console.log(item.tags)
 						return item.tags.includes(selectedTags.label)
 					});
 				}
@@ -83,8 +76,6 @@ function ThemeLibrary({ isSteamClient }) {
                     default:
                         break;
                 }
-                // Add more sorting methods as needed
-
                 const cardElements = sorted.map((item) => (
                     <CreateCard key={item.id} data={item} />
                 ));
@@ -96,16 +87,7 @@ function ThemeLibrary({ isSteamClient }) {
         };
 
         fetchData();
-    }, [sortBy, selectedTags]); // Re-run effect whenever sortBy changes
-  
-
-	// const options = [
-	// 	{ value: 0, label: "Most Downloads", checked: true },
-	// 	{ value: 1, label: "Least Downloads", checked: false },
-	// 	{ value: 2, label: "Recently Updated", checked: false },
-	// 	{ value: 3, label: "Least Recently Updated", checked: false },
-	// 	{ value: 4, label: "Alphabetically", checked: false }
-	// ];
+    }, [sortBy, selectedTags]); 
 
 	const [options, setOptions] = useState([
 		{ value: 1, label: "Most Downloaded", checked: true },
@@ -132,9 +114,6 @@ function ThemeLibrary({ isSteamClient }) {
 
 	const handleTagChange = (selectedOptions) => {
         setSelectedTags(selectedOptions);
-        // Here you can perform any action you want when the selection changes
-        console.log("Selected tags:", selectedOptions);
-        // You may want to update the cards based on the selected tags
     };
 
 	return (
@@ -181,10 +160,9 @@ function ThemeLibrary({ isSteamClient }) {
 									onChange={() => toggleCheckbox(tag.value)}
 								/>
 								<span aria-hidden="true" className="checkbox_icon__6T6ug" >
-									<svg fill="none" height="16" viewBox="0 0 20 20" width="16"
-									>
-									<path d="M14 7L8.5 12.5L6 10" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-									<line stroke="var(--checkbox-color)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="5" x2="15" y1="10" y2="10" />
+									<svg fill="none" height="16" viewBox="0 0 20 20" width="16">
+										<path d="M14 7L8.5 12.5L6 10" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+										<line stroke="var(--checkbox-color)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="5" x2="15" y1="10" y2="10" />
 									</svg>
 								</span>
 							</span>
@@ -204,24 +182,6 @@ function ThemeLibrary({ isSteamClient }) {
 					
 				</div>
 				<div className='themes-right-side'>
-					{/* <section id="addons-controls" className="page-section">
-						<div className="page-section-inner">
-						<div id="addons-actions" className="flex-container align-center wrap">
-						<div className="sign-in-gate">
-							<a href={"https://millennium.gitbook.io/steam-patcher/guides/publishing"} className="btn btn-primary" type="button" id='submit-theme'>
-								<svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-									<path fillRule="evenodd" d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"></path>
-								</svg>
-								<span>Submit a theme</span>
-							</a>
-							{/* <Tooltip anchorSelect="#submit-theme" place='top-end' clickable>
-								<p>Ping moderator on the discord server <br />You must already have a presentable git repo.</p>
-							</Tooltip> }
-						</div>
-
-						</div>
-						</div>
-					</section> */}
 					<section id="addons-content" className="page-section">
 						<div className="theme-listings">
 							{

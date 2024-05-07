@@ -1,7 +1,6 @@
 function RenderFooter() {
     return (
         <div className="footer-container">
-            <img className="zere hide-mobile" loading="lazy" src="/resources/ui/techsupport.webp" alt="Easter egg" />
             <footer id="section-footer" className="page-section">
                 <div className="page-section-inner">
                 <section id="footer-top" className="flex-container hide-mobile">
@@ -44,7 +43,10 @@ function RenderFooter() {
                     <div className="flex-container wrap" id="footer-copyright-container">
                     <div className="footer-copyright text-center"> © {new Date().getFullYear()} <a className="anchor" rel="noreferrer noopener" target="_blank" href="https://github.com/orgs/SteamClientHomebrew/people">
                         Steam Client Homebrew
-                    </a>
+                        </a>
+                    </div>
+                    <div className="footer-disclaimer"> 
+                        SCH & Millennium are not affiliated with or endorsed by Valve Corporation. 
                     </div>
                     </div>
                     <div id="footer-social-icons" className="flex-container justify-center wrap">
