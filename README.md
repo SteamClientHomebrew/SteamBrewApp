@@ -1,20 +1,18 @@
-
-<img src="https://i.imgur.com/9qYPFSA.png" alt="Alt text" width="40">
+<img src="https://i.imgur.com/9qYPFSA.png" alt="Logo" width="40">
 
 ## [SCH] Community Frontend
 
-live build: https://steambrew.app
-
-<br>
+Live build: https://steambrew.app
 
 ## Building
 
-```ps
-git clone https://github.com/SteamClientHomebrew/Frontend.git
-cd Frontend
+```
+git clone https://github.com/SteamClientHomebrew/SteamBrewApp.git
+cd SteamBrewApp
 npm install
 npm run dev
 ```
 
 ## Contributing
+
 Anyone can contribute, anything that enchances the end-user experience is appreciated!
