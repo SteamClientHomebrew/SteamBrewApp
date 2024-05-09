@@ -39,9 +39,9 @@ function RenderHome()
     {/* <Head>
       <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="48x48"></link>
     </Head> */}
-    <div itemscope itemtype="https://schema.org/WebSite">
-      <meta itemprop="url" content="https://steambrew.app/"/>
-      <meta itemprop="name" content="Steam Homebrew"/>
+    <div itemScope itemType="https://schema.org/WebSite">
+      <meta itemProp="url" content="https://steambrew.app/"/>
+      <meta itemProp="name" content="Steam Homebrew"/>
       <link rel="icon" href="/favicon.ico" type="image/x-icon"></link>
     </div>
     <RenderHeader/>
@@ -58,10 +58,10 @@ function RenderHome()
                     <span>Download v{stat?.version ?? "1.0.0"}</span>
                   </button>
                 </a>
-                <Tooltip anchorSelect="#hero-download-button" place='bottom-start' clickable>
+                {/* <Tooltip anchorSelect="#hero-download-button" place='bottom-start' clickable>
                   <h3>Important Notice!</h3>
                   <p className='hero-button-tooltip'>{"Steam has made some changes in the beta version of the Steam Client that Millennium isn't compatable with. As of now, you have to use the stable version (no beta) in Settings -> Interface -> Beta. Support is coming, and will be released when Steam beta becomes public."}</p>
-                </Tooltip>
+                </Tooltip> */}
                 <a href="/discord">
                   <button className="btn btn-secondary" id="hero-community-button" href='/discord'>
                     <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">

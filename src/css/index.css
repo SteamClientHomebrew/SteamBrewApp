@@ -4940,3 +4940,7 @@ div#footer-copyright-container {
 .footer-copyright.text-center {
     text-align: left;
 }
+
+#mouse-icon:hover:before {
+    pointer-events: none;
+}
