@@ -90,13 +90,13 @@ function RenderHome()
         <section id="home-additional-features" className="page-section">     
           <div className="page-section-inner intro-section">    
             <h1 className="title text-center">What's This?</h1>
-            <p className="title-description text-center">As you've heard, Steam® removed the ability customize our client experience. <br />That's where we come in. We've developed Millennium, a patcher which enables open sourced client modifications</p>
+            <p className="title-description text-center">As you've heard, Steam® removed the ability to customize our client experience. <br />That's where we come in. We've developed Millennium, a patcher which enables open sourced client modifications</p>
             <div id="additional-features" className="flex-container align-center justify-center wrap">
               <div className="additional-feature" id="additional-feature-emotes">
                 <div className="additional-feature-icon">
                   <img src="https://i.imgur.com/G94FyIo.png" alt="" />
                 </div>    
-                <h5>Intergration</h5>
+                <h5>Integration</h5>
                 <p>As we are intergrated directly into the Steam® client and doesn't run as a stand-alone process</p>
               </div>
               <div className="additional-feature" id="additional-feature-security">
@@ -104,14 +104,14 @@ function RenderHome()
                   <img src="https://i.imgur.com/K4Nan9a.png" alt="" />
                 </div>
                 <h5>Performance</h5>
-                <p>Thanks to you guys, we are currently the most effecient way to theme your Steam Client!</p>
+                <p>Thanks to you guys, we are currently the most efficient way to theme your Steam Client!</p>
               </div>
               <div className="additional-feature" id="additional-feature-editor">
                 <div className="additional-feature-icon">
                   <img src="https://i.imgur.com/eVD1FRR.png" alt="" />
                 </div>
                 <h5>Safety</h5>
-                <p>Our developers manually review all code on the community hub to ensure there is nothing malcious</p>
+                <p>Our developers manually review all code on the community hub to ensure there is nothing malicious</p>
               </div>
             </div>
           </div>
