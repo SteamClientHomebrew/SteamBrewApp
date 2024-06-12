@@ -6,6 +6,9 @@ import { markdownToHtml } from '../app/components/markdown'
 
 import { date_str, frm_num } from '../app/components/format/formatting'
 import '../css/index.css'
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function HeadProp({ json }) {
     return (
@@ -50,33 +53,207 @@ export const getServerSideProps = (async (context) => {
     }
 })
 
+const NoBackendConnectionModal = () => (
+    <>
+        <div>You're currently in view mode. To install this theme you must have Millennium installed and Steam open! Learn more <a href='https://github.com/SteamClientHomebrew/Millennium/wiki'>here...</a></div>
+    </>
+);
+
 export default function Home({ json, markdown, isSteamClient }) 
 {
-    const startDownload = (download, redirect) => 
-    {
-        const url = 'https://steambrew.app/api/v2/download';
-        const data = {
-            owner: json?.data?.github?.owner,
-            repo: json?.data?.github?.repo
-        };
+    const [socket, setSocket] = useState(new WebSocket("ws://localhost:9123"))
+    const [isConnectedBackend, setConnection] = useState(false)
+    const [isInstalled, setInstalled] = useState(undefined)
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+    const startInstall = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                socket.send(JSON.stringify({
+                    type: "installTheme", 
+                    data: { repo: json?.data?.github?.repo, owner: json?.data?.github?.owner }
+                }))
+    
+                socket.addEventListener('message', function(event) {
+                    // Handle the received message here
+                    console.log('Received message:', event.data);
+                    const message = JSON.parse(event.data)
+    
+                    if (message.type == "installTheme") {
+    
+                        const response = JSON.parse(message.status)
+                        response.success ? resolve(true) : reject(response.message)
+                    }
+                });
+            }, 2500)
         })
-        if (redirect) window.location.href = download
     }
 
-    const handleDragStart = (event) => {
-        event.dataTransfer.setData('text/plain', `${json?.data?.github?.repo}.zip:${json?.download}`);
-    };
+    const setAsSelected = () => {
+        console.log("requesting to update active theme")
 
-    const handleDragEnd = () => startDownload(json?.download, false)
+        socket.send(JSON.stringify({
+            type: "setActiveTheme", 
+            data: { repo: json?.data?.github?.repo, owner: json?.data?.github?.owner }
+        }))
+    }
+
+    const requestInstall = async () => 
+    {
+        const result = await toast.promise(startInstall(), {
+            pending: `Downloading and Installing ${json?.name ?? json?.data?.github?.repo}. This will take a moment...`,
+            success: {
+                render({data}) {
+                    return (
+
+                        <>
+                            <div>Successfully installed {json?.name ?? json?.data?.github?.repo}! Check your theme library on Steam!</div>
+                            {/* <a rel="noreferrer noopener" target="_blank" class="btn btn-secondary btn-toast" onClick={setAsSelected}>
+                                <span>Use Now</span>
+                            </a> */}
+                        </>
+                    )
+                }
+            },
+            error: {
+                render({data}) {
+                    return `Couldn't install ${json?.name ?? json?.data?.github?.repo}: ${data}`
+                }
+            },
+        }, {
+            position: "bottom-right",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            bodyClassName: GeistSans.className
+        });
+
+        if (result === true) {
+            socket.send(JSON.stringify({
+                type: "checkInstall", 
+                data: { repo: json?.data?.github?.repo,  owner: json?.data?.github?.owner }
+            }))
+        }
+
+    }
+
+    const startUninstall = () => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                socket.send(JSON.stringify({
+                    type: "uninstallTheme", 
+                    data: { repo: json?.data?.github?.repo, owner: json?.data?.github?.owner }
+                }))
+    
+                socket.addEventListener('message', function(event) {
+                    // Handle the received message here
+                    console.log('Received message:', event.data);
+                    
+                    const message = JSON.parse(event.data)
+    
+                    if (message.type == "uninstallTheme") {
+    
+                        const response = JSON.parse(message.status)
+                        response.success ? resolve(true) : reject(response.message)
+                    }
+                });
+            }, 2500)
+        })
+    }
+
+    const requestUninstall = async () => 
+    {
+        console.log("requesting to uninstall a theme")
+
+        const result = await toast.promise(startUninstall(), {
+            pending: `Uninstalling ${json?.name ?? json?.data?.github?.repo}. This will take a moment...`,
+            success: "Successfully uninstalled!",
+            error: {
+                render({data}) {
+                    return `Couldn't uninstall ${json?.name ?? json?.data?.github?.repo}: ${data}`
+                }
+            },
+        }, {
+            position: "bottom-right",
+            autoClose: 6000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            bodyClassName: GeistSans.className
+        });
+
+        if (result === true) {
+            socket.send(JSON.stringify({
+                type: "checkInstall", 
+                data: { repo: json?.data?.github?.repo,  owner: json?.data?.github?.owner }
+            }))
+        }
+
+        console.log(result)
+    }
+
+    useEffect(() => {
+        // setSocket(new WebSocket("ws://localhost:9123"))
+
+        socket.onopen = () => {
+            console.log("connected to millennium!")
+            setConnection(true)
+
+            socket.send(JSON.stringify({
+                type: "checkInstall", 
+                data: {
+                    repo: json?.data?.github?.repo, 
+                    owner: json?.data?.github?.owner
+                }
+            }))
+        }
+
+        socket.onerror = (event) => {
+            console.log(event)
+            toast.warn(<NoBackendConnectionModal/>, {
+                position: "bottom-right",
+                autoClose: 6000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                bodyClassName: GeistSans.className
+            });
+        }
+
+        socket.onmessage = (event) => {
+
+            try {
+                const message = JSON.parse(event.data)
+                console.log(message)
+
+                if (message.type == "checkInstall") {
+                    
+                    setInstalled(message.status)
+                }
+            }
+            catch (exception) {
+                console.error("socket message error", exception)
+            }
+        }
+
+    }, [])
 
   return (
+    
     <div className={GeistSans.className}>
-    <HeadProp json={json} />
+        <HeadProp json={json} />
     <div className="os-resize-observer-host observed">
       <div className="os-resize-observer"></div>
     </div>
@@ -87,6 +264,18 @@ export default function Home({ json, markdown, isSteamClient })
           {!isSteamClient && <RenderHeader/>}
           <section id="main-page-content">
           <section id="addon-details" className="page-section">
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
               <div className="page-section-inner theme-view-panel">
               <img loading="lazy" src={json?.splash_image} className="addon-backdrop"/>
               <div className="flex-container align-center justify-between" id="addon-details-title">
@@ -108,7 +297,31 @@ export default function Home({ json, markdown, isSteamClient })
                       <section id="addon-actions">
                       <div className="btn-container direction-column">
                           <div className='wrap-buttons'>
-                          {!isSteamClient ? 
+
+
+                            {isConnectedBackend ? 
+                                (isInstalled != undefined && (isInstalled ? 
+                                
+                                    <a onClick={requestUninstall} className="btn btn-primary" id='uninstall-btn'>
+                                        <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                            <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
+                                        </svg>
+                                        <span draggable>Uninstall</span>
+                                    </a>
+                                : 
+                                    <a onClick={requestInstall} className="btn btn-primary" id='download-btn'>
+                                        <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                            <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
+                                        </svg>
+                                        <span draggable>Install</span>
+                                    </a>
+                                ))
+                            :
+                                <></>
+                            }
+
+
+                          {/* {!isSteamClient ? 
                               <a onClick={_ => startDownload(json?.download, false)} href={json?.download} className="btn btn-primary" id='download-btn'>
                                 <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
                                     <path fillRule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path>
@@ -120,7 +333,7 @@ export default function Home({ json, markdown, isSteamClient })
                             <div id="draggableFile" className="btn btn-primary" style={{ cursor: 'move', userSelect: 'none'}} draggable onDragStart={e => handleDragStart(e)} onDragEnd={() => handleDragEnd()}>
                                 <span draggable>Drop on Millennium</span>
                             </div>           
-                          }
+                          } */}
                           <a rel="noreferrer noopener" target="_blank" href={`https://github.com/${json?.data?.github?.owner}/${json?.data?.github?.repo}/`} className="btn btn-secondary" id="view-source">
                               <svg className="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
                                   <path fillRule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path>
@@ -128,7 +341,7 @@ export default function Home({ json, markdown, isSteamClient })
                               <span>View Source</span>
                           </a>
                           </div>
-                          {json?.skin_data?.funding?.kofi && <a href={`https://ko-fi.com/${json?.skin_data?.funding?.kofi}`} class="btn btn-primary" id="kofi-btn">
+                          {json?.skin_data?.funding?.kofi && <a href={`https://ko-fi.com/${json?.skin_data?.funding?.kofi}`} className="btn btn-primary" id="kofi-btn">
                             <img id="kofi-icon" src={"https://raw.githubusercontent.com/DeybisMelendez/godot-kofi-button/master/addons/kofi-donation-button/logo.png"}></img>
                             <span draggable="true">Support me on Ko-fi</span>
                           </a>}

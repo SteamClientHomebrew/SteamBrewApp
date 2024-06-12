@@ -2596,13 +2596,13 @@ p {
     margin-top: 5px
 }
 
-.anchor {
+.anchor1 {
     color: var(--text-link) !important;
     font-weight: 500 !important;
     text-decoration: none
 }
 
-.anchor:hover {
+.anchor1:hover {
     text-decoration: underline
 }
 
@@ -4943,4 +4943,35 @@ div#footer-copyright-container {
 
 #mouse-icon:hover:before {
     pointer-events: none;
+}
+
+.Toastify__toast {
+    border: 1px solid #242424 !important;
+}
+
+:root {
+    --toastify-toast-width: 435px !important;
+}
+
+a#uninstall-btn, div#draggableFile {
+    color: white;
+    background-color: rgb(182 28 28) !important;
+}
+
+a#uninstall-btn, a#view-source, div#draggableFile {
+    width: 100%;
+    border-radius: 6px;
+}
+
+a.btn.btn-secondary.btn-toast {
+    border-radius: 6px;
+    border: 1px solid #252525;
+    background: #fff;
+    margin-top: 10px;
+    width: fit-content;
+    color: black;
+}
+
+.Toastify__toast-icon {
+    margin-right: 15px !important;
 }
