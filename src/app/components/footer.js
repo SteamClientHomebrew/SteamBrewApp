@@ -46,7 +46,7 @@ function RenderFooter() {
                         </a>
                     </div>
                     <div className="footer-disclaimer"> 
-                        SCH & Millennium are not affiliated with or endorsed by Valve Corporation. 
+                        Steam Homebrew is not affiliated with nor endorsed by Valve Corporation. 
                     </div>
                     </div>
                     <div id="footer-social-icons" className="flex-container justify-center wrap">
