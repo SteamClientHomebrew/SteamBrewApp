@@ -4050,6 +4050,7 @@ a#kofi-btn {
     color: #888 !important;
 }
 img#kofi-icon {
+    width: unset !important;
     height: 14px !important;
 }
 
