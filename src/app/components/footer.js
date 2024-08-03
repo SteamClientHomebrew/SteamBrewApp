@@ -23,13 +23,13 @@ function RenderFooter() {
                     <a href="/themes" className="footer-column-item">
                         <span>Themes</span>
                     </a>
-                    <a href="https://github.com/SteamClientHomebrew/Millennium/wiki" className="footer-column-item">
+                    <a href="https://docs.steambrew.app/" className="footer-column-item">
                         <span>Developers</span>
                     </a>
                     </div>
                     <div className="footer-column">
                     <h3 className="footer-column-header">Help</h3>
-                    <a href="https://github.com/SteamClientHomebrew/Millennium/wiki" target="_blank" className="footer-column-item">Documentation</a>
+                    <a href="https://docs.steambrew.app/" target="_blank" className="footer-column-item">Documentation</a>
                     </div>
                 </section>
                 <section id="footer-bottom" className="flex-container wrap align-center justify-between">
@@ -37,7 +37,7 @@ function RenderFooter() {
                     <div className="footer-privacy text-center">
                         <a href="https://github.com/SteamClientHomebrew/Millennium/" className="footer-privacy-item">GitHub</a>
                         <a href="/discord" className="footer-privacy-item">Discord</a>
-                        <a href="https://github.com/SteamClientHomebrew/Millennium/wiki" className="footer-privacy-item">Documentation</a>
+                        <a href="https://docs.steambrew.app/" className="footer-privacy-item">Documentation</a>
                     </div>
                     </div>
                     <div className="flex-container wrap" id="footer-copyright-container">

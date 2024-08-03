@@ -61,7 +61,7 @@ export default function FluentyViewModal({ isSteamClient }) {
                     <div className="flex-container" id="addon-splitview-container">
                     <div className="addon-details-column" id="addon-details-right-column">
                         <div className="addon-details-segment" id="addon-details-column-actions">
-                            <a class="link_link__hbWKh link_secondary__F1rqx" href="/themes"><small>← Back to Themes</small></a>
+                            <a className="link_link__hbWKh link_secondary__F1rqx" href="/themes"><small>← Back to Themes</small></a>
                             <a target="_blank" className="addon-author-container">
                                 <img loading="lazy" src={`https://i.imgur.com/xSqPofh.png`}/>
                                 <h5>Shadow, Hexality</h5>

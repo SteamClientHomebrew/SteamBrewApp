@@ -52,10 +52,10 @@ function RenderHome()
               <h1 className="text-center title">Millennium.</h1>
               <p className="text-center title-description">An open source gateway to a better Steam® Client user experience</p>
               <div className="btn-container">
-                <a href="https://github.com/SteamClientHomebrew/Installer/releases/latest/download/Millennium.Installer-Windows.exe">
+                <a href="https://docs.steambrew.app/users/installing">
                   <button className="btn btn-primary" id="hero-download-button">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVR4nO3XSwrCUBBE0bsSs/8laFyYGUUEISAZVD4FivfAm8UOqRr4GiTpWw3AHZiAecN5PT8Cl9Ks2H3jyz7PrTQrtjWttfQas2LzCacxK+YH0AkjZgN0wojZAJ0wYjZAJ4yYDdAJI3b0/vIozYqNJ94gz5wVG94/3HOHv67sA2fN0s8YXCkXrpTs4D8xnTBiNkAnjJgN0AkjZgN0wojZAJ0w/qeB6eALXSlZwnCllCQqngrjaGE/A2FKAAAAAElFTkSuQmCC"/>
-                    <span>Download v{stat?.version ?? "1.0.0"}</span>
+                    <span>Install Now</span>
                   </button>
                 </a>
                 {/* <Tooltip anchorSelect="#hero-download-button" place='bottom-start' clickable>

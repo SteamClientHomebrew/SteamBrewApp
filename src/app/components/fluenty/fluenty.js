@@ -2,7 +2,7 @@ const fluenty = {
     description: "A theme based off of Windows 11 design principles",
     version: "1.0.2",
     // yes I manually have to update this as patreon doesnt have an api for it
-    downloads: "1.4K"
+    downloads: "7.2K"
 }
 
 function DisplayFluentyAd() {
